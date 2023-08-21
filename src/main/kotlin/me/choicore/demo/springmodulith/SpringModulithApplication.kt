@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.scheduling.annotation.EnableAsync
+import java.util.UUID
 
 @EnableAsync
 @SpringBootApplication
@@ -18,15 +19,25 @@ class SpringModulithApplication
 private val logger = LoggerFactory.getLogger(SpringModulithApplication::class.java)
 
 fun main(args: Array<String>) {
-    val runApplication = runApplication<SpringModulithApplication>(*args)
-//    testOrder(runApplication)
+    runApplication<SpringModulithApplication>(*args)
+        .apply { orderTest(this) }
 }
 
+private fun orderTest(configurableApplicationContext: ConfigurableApplicationContext) {
 
-private fun testOrder(runApplication: ConfigurableApplicationContext) {
-    val orderManagementService: OrderManagementService = runApplication.getBean(OrderManagementService::class.java)
-    val product: Product = validate { Product(name = "1", amount = 1, description = "1", quantity = 1) }
-    logger.info("Started Order Management Service")
-    orderManagementService.order(Order(product = product))
-    logger.info("Finished Order Management Service")
+    val orderManagementService: OrderManagementService = configurableApplicationContext.getBean(OrderManagementService::class.java)
+
+    val order = Order(
+        id = UUID.randomUUID().toString(),
+        product = Product(
+            name = "먹태깡",
+            amount = 1_700,
+            description = "먹태깡",
+            quantity = 1
+        )
+    )
+
+    logger.info("[Started] Order Management Service")
+    orderManagementService.order(order)
+    logger.info("[Finished] Order Management Service")
 }
