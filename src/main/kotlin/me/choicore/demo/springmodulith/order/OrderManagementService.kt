@@ -1,13 +1,12 @@
 package me.choicore.demo.springmodulith.order
 
 import me.choicore.demo.springmodulith.Slf4j
-import me.choicore.demo.springmodulith.notification.Notification
-import me.choicore.demo.springmodulith.notification.NotificationType
+import me.choicore.demo.springmodulith.notification.entity.Notification
+import me.choicore.demo.springmodulith.notification.entity.NotificationType
 import me.choicore.demo.springmodulith.validate
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-
 
 @Service
 class OrderManagementService(

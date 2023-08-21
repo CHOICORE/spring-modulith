@@ -1,13 +1,12 @@
 package me.choicore.demo.springmodulith.notification
 
 import me.choicore.demo.springmodulith.Slf4j
-import me.choicore.demo.springmodulith.Validator
+import me.choicore.demo.springmodulith.notification.entity.Notification
 import org.springframework.modulith.ApplicationModuleListener
 import org.springframework.stereotype.Service
-import java.time.Instant
 
 @Service
-internal class NotificationManagementService {
+class NotificationManagementService {
 
     private val logger = Slf4j
 
@@ -19,23 +18,4 @@ internal class NotificationManagementService {
 
         logger.info("[completed] order creation completed")
     }
-}
-
-internal data class Notification(
-    val type: NotificationType,
-    val subject: String? = null,
-    val message: String,
-    val notifiedAt: String? = Instant.now().toString(),
-) : Validator {
-    override fun validate() {
-        if (message.isBlank()) {
-            throw IllegalArgumentException("Message cannot be blank")
-        }
-    }
-}
-
-internal enum class NotificationType {
-    EMAIL,
-    SMS,
-    PUSH,
 }

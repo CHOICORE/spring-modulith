@@ -9,25 +9,25 @@ import java.util.function.Consumer
 
 class ModularityTests {
 
-    private val modules = ApplicationModules.of(SpringModulithApplication::class.java)
+    private val applicationModules: ApplicationModules = ApplicationModules.of(SpringModulithApplication::class.java)
 
 
     @Test
     @DisplayName("모듈 간 의존성을 검증한다.")
     fun `verify modules`() {
-        modules.verify()
+        applicationModules.verify()
     }
 
     @Test
     @DisplayName("모듈 구조를 출력한다.")
     fun `displaying module structure `() {
-        modules.forEach(Consumer(::println))
+        applicationModules.forEach(Consumer(::println))
     }
 
     @Test
     @DisplayName("모듈 문서를 생성한다.")
     fun createModuleDocumentation() {
-        Documenter(modules)
+        Documenter(applicationModules)
             .writeDocumentation()
             .writeIndividualModulesAsPlantUml()
 
