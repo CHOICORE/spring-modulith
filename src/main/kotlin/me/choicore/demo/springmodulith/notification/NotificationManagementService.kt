@@ -13,7 +13,7 @@ internal class NotificationManagementService {
 
     @ApplicationModuleListener
     fun notifyEventListener(notification: Notification) {
-        logger.info("[received] order creation completed notification event => \n$notification")
+        logger.info("[Received] order creation completed notification event => \n$notification")
 
         Thread.sleep(1000)
 
@@ -23,6 +23,7 @@ internal class NotificationManagementService {
 
 internal data class Notification(
     val type: NotificationType,
+    val subject: String? = null,
     val message: String,
     val notifiedAt: String? = Instant.now().toString(),
 ) : Validator {

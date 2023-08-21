@@ -11,7 +11,7 @@ class ProductManagementService {
 
 
     fun register(product: Product) {
-        logger.info("[received] product registration event => \n$product")
+        logger.info("[Received] product registration event => \n$product")
         validate { product }
         Thread.sleep(1000)
         logger.info("[completed] product registration event")

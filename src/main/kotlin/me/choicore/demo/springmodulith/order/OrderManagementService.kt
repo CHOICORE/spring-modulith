@@ -17,22 +17,23 @@ class OrderManagementService(
 
     @Transactional
     fun order(order: Order) {
-        logger.info("order creation : $order")
+        logger.info("Order creation => \n$order")
         validate { order }
 
         val product = validate { order.product }
 
         applicationEventPublisher.publishEvent(product)
-        logger.info("[published] product registration event")
+        logger.info("[Published] product registration event")
 
         val notification: Notification = validate {
             Notification(
-                type = NotificationType.SMS,
-                message = "[SMS] 상품 등록 알림 | $order",
+                type = NotificationType.PUSH,
+                subject = "상품 주문이 완료되었습니다.",
+                message = "$order",
             )
         }
 
         applicationEventPublisher.publishEvent(notification)
-        logger.info("[published] order creation completed notification event")
+        logger.info("[Published] order creation completed notification event")
     }
 }
